@@ -10,7 +10,7 @@ void motores::initMotores(){
 void motores::adelante(byte velocidad){
     digitalWrite (A1, LOW);
     digitalWrite (B1, LOW);
-    analogWrite(A2, 100);
-    analogWrite(B2, 255);
+    analogWrite(A2, velocidad);
+    analogWrite(B2, velocidad);
 }
 

@@ -3,8 +3,9 @@
 
 void setup() {
   // put your setup code here, to run once:
+  motores::initMotores();
 }
 
 void loop() {
-  motores::adelante;
+  motores::adelante(255);
 }
