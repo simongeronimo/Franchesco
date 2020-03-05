@@ -6,10 +6,10 @@ Simon Mesber, Santos Michelena Y Sergio Duran
 
 #include <Arduino.h>
 
-#define A1 5
-#define A2 4
-#define B1 2
-#define B2 3
+#define motorA1 5
+#define motorA2 4
+#define motorB1 2
+#define motorB2 3
 
 #ifndef MOTORES_H
 #define MOTORES_H
@@ -20,7 +20,11 @@ Simon Mesber, Santos Michelena Y Sergio Duran
         void atras(byte velocidad);
         void izquierda(byte velocidad);
         void derecha(byte velocidad);
-        void parar();
+        void diagonalDerechaUp(int x, int y);
+        void diagonalDerechaDown(int x, int y);
+        void diagonalIzquierdaUp(int x, int y);
+        void diagonalIzquierdaDown(int x, int y);
+        void stop();
     };
 
 #endif
