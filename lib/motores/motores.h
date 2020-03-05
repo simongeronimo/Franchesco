@@ -20,6 +20,11 @@ Simon Mesber, Santos Michelena Y Sergio Duran
         void atras(byte velocidad);
         void izquierda(byte velocidad);
         void derecha(byte velocidad);
+        void diagonalDerechaUp(int x, int y);
+        void diagonalDerechaDown(int x, int y);
+        void diagonalIzquierdaUp(int x, int y);
+        void diagonalIzquierdaDown(int x, int y);
+        void stop();
     };
 
 #endif
