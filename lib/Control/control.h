@@ -7,6 +7,7 @@ Autores: Sergio Duran Y Santos Michelena
 #ifndef CONTROL_H
 #define CONTROL_H
 
+//Pines del arduino
 #define MOTORA1  11 
 #define MOTORA2  10 
 #define MOTORB1  9 

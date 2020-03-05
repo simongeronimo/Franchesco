@@ -8,8 +8,7 @@ void motores(int speed1, int speed2, int speed3, int speed4){
 }
 /*
 
-    Falta agregar que el motor rapido tiene que trabajar a 105 mientras que el otro a 255
-    medir el tiempo que se demora en dar una vuelta de 90 grados, dependiendo de que direccion vaya.
+    Falta medir el tiempo que se demora en dar una vuelta de 90 grados, dependiendo de que direccion vaya.
 
 */
 void control::mover(Direccion direccion)
@@ -19,14 +18,26 @@ void control::mover(Direccion direccion)
         case ADELANTE:
             for (int speedSet = 0; speedSet < MAX_SPEED; speedSet +=2) 
             {
-                motores(speedSet, 0, speedSet, 0);
+                if(speedSet <105)
+                {
+                    motores(speedSet, 0, speedSet, 0);
+                }else
+                {
+                    motores(105, 0, speedSet, 0);
+                }
                 delay(5);
             }
             break;
         case ATRAS:
             for (int speedSet = 0; speedSet < MAX_SPEED; speedSet +=2) 
             {
-                motores(0,speedSet, 0, speedSet);
+                if(speedSet <105)
+                {
+                    motores(0, speedSet, 0, speedSet);
+                }else
+                {
+                    motores(0, 105, 0, speedSet);
+                }
                 delay(5);
             }
             break;
@@ -34,13 +45,26 @@ void control::mover(Direccion direccion)
             for (int speedSet = 0; speedSet < MAX_SPEED; speedSet +=2) 
             {
                 motores(speedSet, 0, 0, 0);
+                if(speedSet <105)
+                {
+                    motores(speedSet, 0, 0, speedSet);
+                }else
+                {
+                    motores(105, 0, 0, speedSet);
+                }
                 delay(5);
             }
             break;
         case IZQUIERDA:
             for (int speedSet = 0; speedSet < MAX_SPEED; speedSet +=2) 
             {
-                motores(0, 0, speedSet, 0);
+                if(speedSet <105)
+                {
+                    motores(0, speedSet, speedSet, 0);
+                }else
+                {
+                    motores(0, 105, speedSet, 0);
+                }
                 delay(5);
             }
             break;

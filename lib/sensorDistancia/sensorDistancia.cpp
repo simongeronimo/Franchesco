@@ -3,7 +3,8 @@
 
 #define STEPS 360 //No se si es un numero valido
 
-Stepper stepper(STEPS, 14, 12, 13, 15); //Revisar si los pines estan disponibles
+//Pines arduino
+Stepper stepper(STEPS, 2, 3, 4, 5);
 
 void sensorDist::init_sensorDist(void)
 {

@@ -11,7 +11,8 @@ Simon Mesber, Santos Michelena y Sergio Duran.
 #define SENSORDISTANCIA_H
 
 
-#define trig 14
+//Pines arduino
+#define trig 13
 #define echo 12
  
 
