@@ -20,6 +20,7 @@ Simon Mesber, Santos Michelena Y Sergio Duran
         void atras(byte velocidad);
         void izquierda(byte velocidad);
         void derecha(byte velocidad);
+        void parar();
     };
 
 #endif

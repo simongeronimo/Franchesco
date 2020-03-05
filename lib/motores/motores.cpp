@@ -14,3 +14,17 @@ void motores::adelante(byte velocidad){
     analogWrite(B2, velocidad);
 }
 
+void motores::atras(byte velocidad){
+    analogWrite (A1, velocidad);
+    analogWrite (B1, velocidad);
+    analogWrite(A2, LOW);
+    analogWrite(B2, LOW);
+}
+
+void motores::parar(){
+    digitalWrite (A1, LOW);
+    digitalWrite (B1, LOW);
+    analogWrite(A2, LOW);
+    analogWrite(B2, LOW);
+}
+

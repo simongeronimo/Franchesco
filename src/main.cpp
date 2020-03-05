@@ -1,11 +1,47 @@
 #include <Arduino.h>
-#include <motores.h>
+#include <control.h>
+#include <sensorDistancia.h>
 
-void setup() {
+void setup()
+{
   // put your setup code here, to run once:
-  motores::initMotores();
+  sensorDist::init_sensorDist();
 }
 
-void loop() {
-  motores::adelante(255);
+void loop()
+{
+  int distanceR = 0;
+  int distanceL = 0;
+  delay(40);
+
+  if (sensorDist::distancia() <= 15)
+  { //Cuando se encuentra con un obstaculo, retorcede y busca el camino mas largo
+    control::mover(STOP);
+    delay(100);
+    control::mover(ATRAS);
+    delay(300);
+    control::mover(STOP);
+    delay(200); //Este tiempo hay que cambiarlo por el necesario para separarse del obstaculo
+    distanceR = sensorDist::mirarDer();
+    delay(200); 
+    distanceL = sensorDist::mirarIzq();
+    delay(200);
+
+    if (distanceR >= distanceL)
+    {
+      control::mover(DERECHA);
+      delay(200); //Este delay hay que cambiarlo por el tiempo necesario para que de una vuelta de 90 grados
+      control::mover(STOP);
+    }
+    else
+    {
+      control::mover(IZQUIERDA);
+      delay(200); //Este delay hay que cambiarlo por el tiempo necesario para que de una vuelta de 90 grados
+      control::mover(STOP);
+    }
+  }
+  else
+  {
+    control::mover(ADELANTE);
+  }
 }
