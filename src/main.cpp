@@ -10,12 +10,11 @@ void setup()
 
 void loop()
 {
-  int distanceR = 0;
-  int distanceL = 0;
-  delay(40);
-
   if (sensorDist::distancia() <= 15)
   { //Cuando se encuentra con un obstaculo, retorcede y busca el camino mas largo
+    int distanceR = 0;
+    int distanceL = 0;
+    
     control::mover(STOP);
     delay(100);
     control::mover(ATRAS);
@@ -44,4 +43,5 @@ void loop()
   {
     control::mover(ADELANTE);
   }
+  delay(40);
 }
