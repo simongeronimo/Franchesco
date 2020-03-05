@@ -16,7 +16,7 @@ void sensorDist::init_sensorDist(void)
     pinMode(trig, OUTPUT);
     pinMode(echo, INPUT);
 //    stepper.setSpeed(5);
-    servo.attach(5); 
+    servo.attach(9); 
 }
 
 int sensorDist::distancia(void)

@@ -10,8 +10,8 @@ Autores: Sergio Duran Y Santos Michelena
 //Pines del arduino
 #define MOTORA1  11 
 #define MOTORA2  10 
-#define MOTORB1  9 
-#define MOTORB2  6 
+#define MOTORB1  6 
+#define MOTORB2  5 
 #define MAX_SPEED 255
 
 enum Direccion{
