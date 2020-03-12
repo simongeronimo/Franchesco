@@ -1,4 +1,18 @@
 #include "control.h"
+#include "SensorDistancia.h"
+#include "Servo.h"
+
+
+#define MEDIO 90
+#define DER 5
+#define IZQ 175
+Servo myservo;
+
+const int servoPin = 5; //D1
+
+void faros(bool encendido){
+  digitalWrite(FARO_DER, encendido);
+}
 
 void motores(int speed1, int speed2, int speed3, int speed4){
     analogWrite(MOTORA1, speed1);
@@ -6,70 +20,107 @@ void motores(int speed1, int speed2, int speed3, int speed4){
     analogWrite(MOTORB1, speed3);
     analogWrite(MOTORB2, speed4);
 }
-/*
 
-    Falta medir el tiempo que se demora en dar una vuelta de 90 grados, dependiendo de que direccion vaya.
+int volteaDER()
+{
+  myservo.write(DER);
+  delay(1500);
+  int distance = sensorDist::distancia();
+  delay(1000);
+  myservo.write(MEDIO);
+  delay(1500);
+  return distance;
+}
 
-*/
+int volteaIZQ()
+{
+  myservo.write(IZQ);
+  delay(1500);
+  int distance = sensorDist::distancia();
+  delay(1000);
+  myservo.write(MEDIO);
+  delay(1500);
+  return distance;
+}
+
+void control::init(){
+    Serial.begin(9600);
+    sensorDist::init_sensorDist();
+    myservo.attach(servoPin);
+    pinMode(FARO_DER, OUTPUT); 
+    faros(LOW);
+    myservo.write(MEDIO);
+}
+
 void control::mover(Direccion direccion)
 {
     switch (direccion)
     {
         case ADELANTE:
-            for (int speedSet = 0; speedSet < MAX_SPEED; speedSet +=2) 
-            {
-                if(speedSet <105)
-                {
-                    motores(speedSet, 0, speedSet, 0);
-                }else
-                {
-                    motores(105, 0, speedSet, 0);
+            for (int i=0; i<MAX_SPEED; ++i){
+                if (i < 525){
+                    motores(i, 0, 2*i, 0);
+                }else{
+                    motores(i, 0, 550, 0);
                 }
-                delay(5);
             }
             break;
         case ATRAS:
-            for (int speedSet = 0; speedSet < MAX_SPEED; speedSet +=2) 
-            {
-                if(speedSet <105)
-                {
-                    motores(0, speedSet, 0, speedSet);
-                }else
-                {
-                    motores(0, 105, 0, speedSet);
+            faros(HIGH);
+            for (int i=0; i<MAX_SPEED; ++i){
+                if (i < 525){
+                    motores(0, i, 0, 2*i);
+                }else{
+                    motores(0, i, 0, 560);
                 }
-                delay(5);
             }
             break;
         case DERECHA:
-            for (int speedSet = 0; speedSet < MAX_SPEED; speedSet +=2) 
-            {
-                motores(speedSet, 0, 0, 0);
-                if(speedSet <105)
-                {
-                    motores(speedSet, 0, 0, speedSet);
-                }else
-                {
-                    motores(105, 0, 0, speedSet);
-                }
-                delay(5);
-            }
+            motores(1023, 0, 0, 700);
             break;
         case IZQUIERDA:
-            for (int speedSet = 0; speedSet < MAX_SPEED; speedSet +=2) 
-            {
-                if(speedSet <105)
-                {
-                    motores(0, speedSet, speedSet, 0);
-                }else
-                {
-                    motores(0, 105, speedSet, 0);
-                }
-                delay(5);
-            }
+            motores(0, 1023, 650,0);
             break;
         default:
+            faros(LOW);
             motores(0,0,0,0);
             break;
+    }
+}
+
+void control::rutina(){
+  if (sensorDist::distancia()<15)
+  {
+    mover(STOP);
+    delay(100);
+    mover(ATRAS);
+    delay(500);
+    mover(STOP);
+    delay(500);
+    int distDER = volteaDER();
+    int distIZQ = volteaIZQ();
+    if(distDER > distIZQ){
+      mover(DERECHA);
+      delay(1000);
+      mover(STOP);
+    }else{
+      mover(IZQUIERDA);
+      delay(1000);
+      mover(STOP);
+    }
+    delay(2000);
+  }else{
+    mover(ADELANTE);
+  }
+  delay(40);
+}
+
+void control::test(){
+  int distance = sensorDist::distancia();
+  Serial.println();
+    if(distance> 15){
+      faros(HIGH);
+    }else{
+      faros(LOW);
     }
 }

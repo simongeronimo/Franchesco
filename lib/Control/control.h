@@ -7,12 +7,13 @@ Autores: Sergio Duran Y Santos Michelena
 #ifndef CONTROL_H
 #define CONTROL_H
 
-//Pines del arduino
-#define MOTORA1  11 
-#define MOTORA2  10 
-#define MOTORB1  6 
-#define MOTORB2  5 
-#define MAX_SPEED 255
+//Pines del esp8266
+#define MOTORA1  0 //D3
+#define MOTORA2  2 //D4
+#define MOTORB1  14 //D5
+#define MOTORB2  12 //D6
+#define MAX_SPEED 1023
+#define FARO_DER 15 //D8 
 
 enum Direccion{
     ADELANTE,
@@ -24,7 +25,10 @@ enum Direccion{
 
 namespace control
 {
+    void init(void);
     void mover(Direccion);
+    void rutina(void);
+    void test(void);
 }
 
 #endif

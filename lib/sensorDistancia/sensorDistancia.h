@@ -12,16 +12,15 @@ Simon Mesber, Santos Michelena y Sergio Duran.
 
 
 //Pines arduino
-#define trig 13
-#define echo 12
+#define trig 16
+#define echo 4
+#define MAX 200
  
 
 namespace sensorDist
 {
     void init_sensorDist(void);
     int distancia(void);
-    int mirarDer(void);
-    int mirarIzq(void);
 };
 
 #endif
